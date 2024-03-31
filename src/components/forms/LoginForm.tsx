@@ -17,6 +17,7 @@ import { toast } from "../ui/use-toast";
 import { AppDispatch } from "@/state/store";
 import { useDispatch } from "react-redux";
 import { saveLoginData } from "@/state/login/loginSlice";
+import { setLoading } from "@/state/login/loadingSlice";
 
 const LoginForm = () => {
   const queryClient = useQueryClient();
@@ -25,6 +26,7 @@ const LoginForm = () => {
   const loginMutation = useMutation({
     mutationFn: login,
     onError: (error) => {
+      dispatch(setLoading(false));
       toast({
         title: "Login failed",
         description: error.message,
@@ -33,6 +35,7 @@ const LoginForm = () => {
       form.reset();
     },
     onSuccess: (data) => {
+      dispatch(setLoading(false));
       queryClient.invalidateQueries({ queryKey: ["login"] });
       console.log(data.data);
       toast({
@@ -54,6 +57,10 @@ const LoginForm = () => {
 
   function onSubmit(data: TLoginSchema) {
     loginMutation.mutate(data);
+  }
+
+  if (loginMutation.isPending) {
+    dispatch(setLoading(true));
   }
 
   return (
