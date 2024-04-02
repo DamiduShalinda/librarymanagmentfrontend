@@ -3,6 +3,7 @@ import { TAuthor } from "@/schema/authorsSchema";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "../ui/button";
 import { toast } from "../ui/use-toast";
+import { useNavigate } from "react-router-dom";
 
 
 const AuthorsList = () => {
@@ -12,7 +13,8 @@ const AuthorsList = () => {
   });
 
   const queryClient = useQueryClient();
-  
+  const navigate = useNavigate();
+
   const deleteMutation = useMutation({
     mutationFn: deleteAuthor,
     onSuccess: () => {
@@ -44,15 +46,12 @@ const AuthorsList = () => {
           <Button
             key={author.id}
             size={"lg"}
-            className="w-full flex justify-between gap-1"
+            onClick={() => navigate(`/author/${author.id}`)}
+            className="w-full flex justify-start gap-1"
             variant={"ghost"}
           >
-            <span className="flex flex-row gap-3">
               <span>{index + 1}.</span>
               <span>{author.authorName}</span>
-            </span>
-            <Button variant="outline" size={"sm"} className="bg-red-300" onClick={() => deletePost(author.id)}>Delete</Button>
-            <Button variant="outline" size={"sm"} className="bg-blue-300">Edit</Button>
           </Button>
         ))}
       </ol>

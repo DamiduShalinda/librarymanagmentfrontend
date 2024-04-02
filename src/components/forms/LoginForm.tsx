@@ -18,10 +18,12 @@ import { AppDispatch } from "@/state/store";
 import { useDispatch } from "react-redux";
 import { saveLoginData } from "@/state/login/loginSlice";
 import { setLoading } from "@/state/login/loadingSlice";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const loginMutation = useMutation({
     mutationFn: login,
@@ -44,6 +46,7 @@ const LoginForm = () => {
         duration: 1500,
       });
       dispatch(saveLoginData(data.data));
+      navigate("/");
     },
   });
 
