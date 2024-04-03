@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "../ui/button";
 import { toast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import { Ellipsis } from "lucide-react";
 
 
 const AuthorsList = () => {
@@ -52,6 +53,15 @@ const AuthorsList = () => {
           >
               <span>{index + 1}.</span>
               <span>{author.authorName}</span>
+              <Button
+                size={"icon"}
+                variant={"ghost"}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
+                <Ellipsis size={16} strokeWidth={1} absoluteStrokeWidth />
+                </Button>
           </Button>
         ))}
       </ol>

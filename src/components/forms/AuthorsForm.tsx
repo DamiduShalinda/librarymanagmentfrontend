@@ -14,10 +14,11 @@ import { Button } from "../ui/button";
 import { AuthorSchema, TAuthor } from "@/schema/authorsSchema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createAuthor } from "@/api/author";
+import { useNavigate } from "react-router-dom";
 
 const AuthorsForm = () => {
   const queryClient = useQueryClient();
-
+  const navigate = useNavigate();
   const createPostMutation = useMutation({
     mutationFn: createAuthor,
     onSuccess: () => {
@@ -28,6 +29,7 @@ const AuthorsForm = () => {
         duration: 1500,
       });
       form.reset();
+      navigate("/authors");
     },
   });
 

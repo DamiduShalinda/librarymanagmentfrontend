@@ -1,37 +1,23 @@
-import { useState } from "react";
-import BookList from "../others/BookList";
+import { useNavigate } from "react-router-dom";
+import { DataTableDemo } from "../BookTable";
 import { Button } from "../ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "../ui/card";
-import AddBookForm from "../forms/AddBookForm";
 
 const AllBooksPage = () => {
 
-  const [isAddBook, setIsAddBook] = useState(true);
+  const navigate = useNavigate();
 
   return (
-    <div>
-      <Card className="w-[450px]">
-        <CardHeader>
-          <Button 
-            className="mb-4"
-              onClick={() => setIsAddBook(!isAddBook)}>
-            {isAddBook ? "Add New Book" : "View All Books"}</Button>
-          <CardTitle>All Books</CardTitle>
-          <CardDescription>List All Books</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {isAddBook ? (
-            <BookList /> ) : (
-              <AddBookForm />
-            )}
-        </CardContent>
-      </Card>
+    <div className="w-full px-10" id="all-books-page">
+      <div className="flex flex-row justify-between items-center" id="all-books-page-header">
+      <div id="all-books-page-header-title" className="">
+          <h1 className="text-3xl font-medium">All Books</h1>
+          <p className="text-sm">List All Books</p>
+        </div>
+        <Button variant="default" className="mt-5 w-1/5" onClick={() => navigate("new")}>
+          Add New Book
+        </Button>
+      </div>
+      <DataTableDemo />
     </div>
   );
 };
