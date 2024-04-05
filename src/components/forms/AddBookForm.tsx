@@ -6,6 +6,7 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
+  FormDescription,
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { TAuthor } from "@/schema/authorsSchema";
@@ -91,8 +92,9 @@ const AddBookForm = () => {
             <FormItem>
               <FormLabel>Book's Title</FormLabel>
               <FormControl>
-                <Input placeholder="Books's Title" {...field} />
+                <Input placeholder="Ex : The Luna's Eclipse" {...field} />
               </FormControl>
+              <FormDescription>Enter the book's title</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -104,8 +106,9 @@ const AddBookForm = () => {
             <FormItem>
               <FormLabel>ISBN</FormLabel>
               <FormControl>
-                <Input placeholder="ISBN No" {...field} />
+                <Input placeholder="Ex : 1510778365" {...field} />
               </FormControl>
+              <FormDescription>Enter the book's ISBN</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -133,6 +136,7 @@ const AddBookForm = () => {
                 </SelectContent>
               </Select>
               <FormMessage />
+              <FormDescription>Select the author of the book</FormDescription>
             </FormItem>
           )}
         />

@@ -5,9 +5,9 @@ import { Button } from "../ui/button";
 const AllAuthorsPage = () => {
   const navigate = useNavigate();
   return (
-    <div className="w-full px-10 flex flex-col gap-4" id="all-authors-page">
+    <div className="w-full px-10 flex flex-col gap-4 items-start" id="all-authors-page">
       <div
-        className="flex flex-row justify-between items-center"
+        className="flex flex-row justify-between items-center w-full"
         id="all-authors-page-header"
       >
         <div id="all-authors-page-header-title" className="">
@@ -22,7 +22,9 @@ const AllAuthorsPage = () => {
           Add New Author
         </Button>
       </div>
-      <AuthorsList />
+      <div className="w-1/3">
+        <AuthorsList />
+      </div>
     </div>
   );
 };

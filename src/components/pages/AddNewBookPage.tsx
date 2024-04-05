@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui
 const AddNewBookPage = () => {
   return (
     <div>
-      <Card className="w-[450px]">
+      <Card className="w-5/6 border-none shadow-none">
         <CardHeader>
           <CardTitle>Add Book</CardTitle>
           <CardDescription>Add New Book to the database</CardDescription>

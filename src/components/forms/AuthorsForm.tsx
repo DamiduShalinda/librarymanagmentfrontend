@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -58,6 +59,7 @@ const AuthorsForm = () => {
                 <Input placeholder="Author's Name" {...field} />
               </FormControl>
               <FormMessage />
+              <FormDescription>Enter an author's name</FormDescription>
             </FormItem>
           )}
         />

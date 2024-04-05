@@ -12,6 +12,7 @@ import AllBooksPage from './components/pages/AllBooksPage'
 import BookPage from './components/pages/BookPage'
 import AddNewBookPage from './components/pages/AddNewBookPage'
 import AddNewAuthorPage from './components/pages/AddNewAuthorPage'
+import NavBarSearch from './components/navbar/NavBarSearch'
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
       <div className='flex flex-row gap-3 h-screen'>
         <Navbar />
         <div className="pt-5 w-full">
+          <NavBarSearch />
           <Routes>
             <Route path='/' element={<BookBorrowPage />} />
             <Route path='/authors' element={<AllAuthorsPage />} />

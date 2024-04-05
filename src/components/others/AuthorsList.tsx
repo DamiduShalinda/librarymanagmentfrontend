@@ -5,7 +5,14 @@ import { Button } from "../ui/button";
 import { toast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import { Ellipsis } from "lucide-react";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 const AuthorsList = () => {
   const { isLoading, data, error, isError } = useQuery<TAuthor[]>({
@@ -26,7 +33,7 @@ const AuthorsList = () => {
         duration: 1500,
       });
     },
-  })
+  });
 
   if (isError) {
     return <div>Error: {error.message}</div>;
@@ -38,30 +45,43 @@ const AuthorsList = () => {
 
   const deletePost = (id: number) => {
     deleteMutation.mutate(id);
-  }
+  };
 
   return (
     <div>
       <ol>
-        {data?.map((author , index) => (
+        {data?.map((author, index) => (
           <Button
             key={author.id}
             size={"lg"}
-            onClick={() => navigate(`/author/${author.id}`)}
-            className="w-full flex justify-start gap-1"
+            className="w-full flex justify-between"
             variant={"ghost"}
           >
+            <div className="flex flex-row justify-start gap-1" onClick={() => navigate(`/author/${author.id}`)}>
               <span>{index + 1}.</span>
               <span>{author.authorName}</span>
-              <Button
-                size={"icon"}
-                variant={"ghost"}
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <Ellipsis size={16} strokeWidth={1} absoluteStrokeWidth />
+            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  size={"icon"}
+                  variant={"ghost"}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  <Ellipsis size={16} strokeWidth={1} absoluteStrokeWidth />
                 </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => navigate(`/author/${author.id}`) }>View Author</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => navigate(`/author/${author.id}/edit`) }>Edit</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => deletePost(author.id)} className="text-red-600">Delete</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </Button>
         ))}
       </ol>
