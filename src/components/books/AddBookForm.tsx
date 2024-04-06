@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { Button } from "../ui/button.tsx";
 import {
   Form,
   FormField,
@@ -7,14 +7,14 @@ import {
   FormControl,
   FormMessage,
   FormDescription,
-} from "../ui/form";
-import { Input } from "../ui/input";
-import { TAuthor } from "@/schema/authorsSchema";
-import { BookAddSchema, TBookAdd } from "@/schema/BookAddSchema";
+} from "../ui/form.tsx";
+import { Input } from "../ui/input.tsx";
+import { TAuthor } from "@/schema/authorsSchema.ts";
+import { BookAddSchema, TBookAdd } from "@/schema/BookAddSchema.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
-import { toast } from "../ui/use-toast";
+import { toast } from "../ui/use-toast.ts";
 import {
   Select,
   SelectTrigger,
@@ -22,12 +22,12 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-} from "../ui/select";
+} from "../ui/select.tsx";
 import { getAuthorsID } from "@/api/author";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/state/store";
-import { setLoading } from "@/state/login/loadingSlice";
-import { Textarea } from "../ui/textarea";
+import { AppDispatch } from "@/state/store.ts";
+import { setLoading } from "@/state/login/loadingSlice.ts";
+import { Textarea } from "../ui/textarea.tsx";
 
 type AddBookFormProps = {
   onSubmit: (data: TBookAdd) => void;

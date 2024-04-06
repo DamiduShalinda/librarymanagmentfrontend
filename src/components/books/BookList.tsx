@@ -1,8 +1,8 @@
 import { getBooks } from "@/api/book";
-import { TBookAdd } from "@/schema/BookAddSchema";
+import { TBookAdd } from "@/schema/BookAddSchema.ts";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../ui/button";
+import { Button } from "../ui/button.tsx";
 
 const BookList = () => {
   const navigate = useNavigate();

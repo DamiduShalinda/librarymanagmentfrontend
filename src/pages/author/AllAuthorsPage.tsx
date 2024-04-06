@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import AuthorsList from "../others/AuthorsList";
-import { Button } from "../ui/button";
+import AuthorsList from "../../components/author/AuthorsList.tsx";
+import { Button } from "../../components/ui/button.tsx";
 
 const AllAuthorsPage = () => {
   const navigate = useNavigate();

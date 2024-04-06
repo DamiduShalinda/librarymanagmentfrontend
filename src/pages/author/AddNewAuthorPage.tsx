@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import AuthorsForm from "../forms/AuthorsForm";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card";
+import AuthorsForm from "../../components/author/AuthorsForm.tsx";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../../components/ui/card.tsx";
 import { createAuthor } from "@/api/author";
-import { toast } from "../ui/use-toast";
+import { toast } from "../../components/ui/use-toast.ts";
 import { useNavigate } from "react-router-dom";
 
 const AddNewAuthorPage = () => {

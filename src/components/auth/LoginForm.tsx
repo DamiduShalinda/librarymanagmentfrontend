@@ -1,7 +1,7 @@
-import { TLoginSchema, loginSchema } from "@/schema/loginSchema";
+import { TLoginSchema, loginSchema } from "@/schema/loginSchema.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Button } from "../ui/button";
+import { Button } from "../ui/button.tsx";
 import {
   Form,
   FormField,
@@ -9,15 +9,15 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
+} from "../ui/form.tsx";
+import { Input } from "../ui/input.tsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { login } from "@/api/login";
-import { toast } from "../ui/use-toast";
-import { AppDispatch } from "@/state/store";
+import { toast } from "../ui/use-toast.ts";
+import { AppDispatch } from "@/state/store.ts";
 import { useDispatch } from "react-redux";
-import { saveLoginData } from "@/state/login/loginSlice";
-import { setLoading } from "@/state/login/loadingSlice";
+import { saveLoginData } from "@/state/login/loginSlice.ts";
+import { setLoading } from "@/state/login/loadingSlice.ts";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {

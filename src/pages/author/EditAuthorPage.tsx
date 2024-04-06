@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import AuthorsForm from '../forms/AuthorsForm';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/card';
+import AuthorsForm from '../../components/author/AuthorsForm.tsx';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../../components/ui/card.tsx';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { toast } from '../ui/use-toast';
+import { toast } from '../../components/ui/use-toast.ts';
 import { getAuthorsById, updateAuthor } from '@/api/author';
-import { TAuthor } from '@/schema/authorsSchema';
+import { TAuthor } from '@/schema/authorsSchema.ts';
 
 const EditAuthorPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();

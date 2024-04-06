@@ -1,5 +1,5 @@
 import { getAuthors, getAuthorsById } from '@/api/author'
-import { TAuthor } from '@/schema/authorsSchema'
+import { TAuthor } from '@/schema/authorsSchema.ts'
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 

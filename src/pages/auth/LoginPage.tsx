@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import LoginForm from "../forms/LoginForm";
-import { Button } from "../ui/button";
+import LoginForm from "../../components/auth/LoginForm.tsx";
+import { Button } from "../../components/ui/button.tsx";
 import {
   Card,
   CardContent,
@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
+} from "../../components/ui/card.tsx";
 
 const LoginPage = () => {
 

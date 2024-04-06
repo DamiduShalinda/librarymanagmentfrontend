@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { AllBooksTable } from "../BookTable";
-import { Button } from "../ui/button";
-import { TBookView } from "@/schema/BookAddSchema";
+import { AllBooksTable } from "../../components/books/BookTable.tsx";
+import { Button } from "../../components/ui/button.tsx";
+import { TBookView } from "@/schema/BookAddSchema.ts";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteBook, getBooks } from "@/api/book";
-import { toast } from "../ui/use-toast";
+import { toast } from "../../components/ui/use-toast.ts";
 
 
 const AllBooksPage = () => {

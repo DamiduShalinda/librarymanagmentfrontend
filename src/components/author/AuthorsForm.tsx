@@ -8,10 +8,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { AuthorSchema, TAuthor } from "@/schema/authorsSchema";
+} from "../ui/form.tsx";
+import { Input } from "../ui/input.tsx";
+import { Button } from "../ui/button.tsx";
+import { AuthorSchema, TAuthor } from "@/schema/authorsSchema.ts";
 
 type AuthorsFormProps = {
   onSubmit: (data: TAuthor) => void;

@@ -1,11 +1,11 @@
-import { removeLoginData } from "@/state/login/loginSlice";
-import { AppDispatch } from "@/state/store";
+import { removeLoginData } from "@/state/login/loginSlice.ts";
+import { AppDispatch } from "@/state/store.ts";
 import { useDispatch } from "react-redux";
-import { Button } from "../ui/button";
+import { Button } from "../ui/button.tsx";
 import React from "react";
 import { Home, Library, User } from "lucide-react";
-import NavBarItem, { RouterDetails } from "./NavBarItem";
-import NavBarSearch from "./NavBarSearch";
+import NavBarItem, { RouterDetails } from "./NavBarItem.tsx";
+import ItemSearch from "./ItemSearch.tsx";
 
 const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>();

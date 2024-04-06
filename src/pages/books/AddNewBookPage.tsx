@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import AddBookForm from "../forms/AddBookForm";
+import AddBookForm from "../../components/books/AddBookForm.tsx";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
-} from "../ui/card";
+} from "../../components/ui/card.tsx";
 import { createBook } from "@/api/book";
-import { toast } from "../ui/use-toast";
+import { toast } from "../../components/ui/use-toast.ts";
 
 const AddNewBookPage = () => {
   const queryClient = useQueryClient();

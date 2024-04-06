@@ -1,10 +1,9 @@
-import React from 'react'
-import { Button } from '../ui/button'
-import { Input } from '../ui/input'
+import { Button } from '../ui/button.tsx'
+import { Input } from '../ui/input.tsx'
 import { Search } from 'lucide-react'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select.tsx'
 
-const NavBarSearch = () => {
+const ItemSearch = () => {
   return (
     <div className="flex w-1/3 items-center space-x-2 pb-8">
           <Select>
@@ -26,4 +25,4 @@ const NavBarSearch = () => {
   )
 }
 
-export default NavBarSearch
+export default ItemSearch

@@ -1,6 +1,6 @@
-import LoginForm from "../forms/LoginForm"
-import { Button } from "../ui/button"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../ui/card"
+import LoginForm from "../components/auth/LoginForm.tsx"
+import { Button } from "../components/ui/button.tsx"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../components/ui/card.tsx"
 
 const BookBorrowPage = () => {
   return (

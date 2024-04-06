@@ -1,10 +1,10 @@
 import { getBookById, updateBook } from '@/api/book';
-import { TBookAdd } from '@/schema/BookAddSchema';
+import { TBookAdd } from '@/schema/BookAddSchema.ts';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import AddBookForm from '../forms/AddBookForm';
-import { toast } from '../ui/use-toast';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/card';
+import AddBookForm from '../../components/books/AddBookForm.tsx';
+import { toast } from '../../components/ui/use-toast.ts';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../../components/ui/card.tsx';
 
 const EditBookPage = () => {
 

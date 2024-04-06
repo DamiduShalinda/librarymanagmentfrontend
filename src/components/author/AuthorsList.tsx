@@ -1,8 +1,8 @@
 import { deleteAuthor, getAuthors } from "@/api/author";
-import { TAuthor } from "@/schema/authorsSchema";
+import { TAuthor } from "@/schema/authorsSchema.ts";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Button } from "../ui/button";
-import { toast } from "../ui/use-toast";
+import { Button } from "../ui/button.tsx";
+import { toast } from "../ui/use-toast.ts";
 import { useNavigate } from "react-router-dom";
 import { Ellipsis } from "lucide-react";
 import {
@@ -12,7 +12,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../ui/dropdown-menu.tsx";
 
 const AuthorsList = () => {
   const { isLoading, data, error, isError } = useQuery<TAuthor[]>({

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
-import RegisterForm from "../forms/RegisterForm"
-import { Button } from "../ui/button"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../ui/card"
+import RegisterForm from "../../components/auth/RegisterForm.tsx"
+import { Button } from "../../components/ui/button.tsx"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../../components/ui/card.tsx"
 
 const RegisterPage = () => {
 
