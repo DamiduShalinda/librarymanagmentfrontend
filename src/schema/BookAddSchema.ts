@@ -7,7 +7,7 @@ export const BookAddSchema = z.object({
     }).max(255, {
         message: "Title must be at most 255 characters long"
     }),
-    author: z.string().min(0 , {
+    authorName: z.string().min(0 , {
         message: "Author must be at least 0 characters long"
     }).max(255, {
         message: "Author must be at most 255 characters long"
@@ -16,6 +16,9 @@ export const BookAddSchema = z.object({
         message: "ISBN must be at least 10 characters long"
     }).max(13, {
         message: "ISBN must be at most 13 characters long"
+    }),
+    bookDescription: z.string().min(0, {
+        message: "Description must be at least 0 characters long"
     }),
 });
 

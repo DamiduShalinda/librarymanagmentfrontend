@@ -13,8 +13,7 @@ import { TAuthor } from "@/schema/authorsSchema";
 import { BookAddSchema, TBookAdd } from "@/schema/BookAddSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { createBook } from "@/api/book";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "../ui/use-toast";
 import {
   Select,
@@ -22,52 +21,38 @@ import {
   SelectValue,
   SelectContent,
   SelectGroup,
-  SelectLabel,
   SelectItem,
 } from "../ui/select";
 import { getAuthorsID } from "@/api/author";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/state/store";
 import { setLoading } from "@/state/login/loadingSlice";
+import { Textarea } from "../ui/textarea";
 
-const AddBookForm = () => {
-  const queryClient = useQueryClient();
+type AddBookFormProps = {
+  onSubmit: (data: TBookAdd) => void;
+  initialValues?: TBookAdd;
+};
+
+
+const AddBookForm = ({onSubmit , initialValues} : AddBookFormProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const { isLoading, data, error, isError } = useQuery<TAuthor[]>({
     queryKey: ["authors-id"],
     queryFn: getAuthorsID,
   });
 
-  const createPostMutation = useMutation({
-    mutationFn: createBook,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["books"] });
-      toast({
-        title: "Book created",
-        variant: "default",
-        duration: 1500,
-      });
-      form.reset();
-    },
-  });
 
   const form = useForm<TBookAdd>({
     resolver: zodResolver(BookAddSchema),
     defaultValues: {
-      id: 0,
-      bookName: "",
-      author: "",
+      id: initialValues?.id || 0,
+      bookName: initialValues?.bookName || "",
+      authorName: initialValues?.authorName || "",
+      isbn: initialValues?.isbn || "",
+      bookDescription: initialValues?.bookDescription || "",
     },
   });
-
-  function onSubmit(data: TBookAdd) {
-    toast({
-      title: "Creating Book",
-      description: `${data.author} is being created`,
-      variant: "default",
-      duration: 1500,
-    });
-  }
 
   if (isError) {
     dispatch(setLoading(false));
@@ -82,9 +67,15 @@ const AddBookForm = () => {
     return <div>Loading...</div>;
   }
 
+  function onFormSubmit(data: TBookAdd) {
+    console.log(data);
+    onSubmit(data);
+    form.reset();
+  }
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+      <form onSubmit={form.handleSubmit(onFormSubmit)} className="space-y-4 w-full">
         <FormField
           control={form.control}
           name="bookName"
@@ -115,7 +106,7 @@ const AddBookForm = () => {
         />
         <FormField
           control={form.control}
-          name="author"
+          name="authorName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Author</FormLabel>
@@ -137,6 +128,26 @@ const AddBookForm = () => {
               </Select>
               <FormMessage />
               <FormDescription>Select the author of the book</FormDescription>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="bookDescription"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Book Description"
+                  className="resize-none"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>
+                Add a description about book
+              </FormDescription>
+              <FormMessage />
             </FormItem>
           )}
         />

@@ -1,5 +1,3 @@
-import { getAuthors } from '@/api/author';
-
 import { TAuthor } from "@/schema/authorsSchema";
 import { AuthorsAPI } from "../const";
 import axios from "axios";

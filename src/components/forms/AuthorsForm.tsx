@@ -9,46 +9,34 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { toast } from "../ui/use-toast";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { AuthorSchema, TAuthor } from "@/schema/authorsSchema";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createAuthor } from "@/api/author";
-import { useNavigate } from "react-router-dom";
 
-const AuthorsForm = () => {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  const createPostMutation = useMutation({
-    mutationFn: createAuthor,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["authors"] });
-      toast({
-        title: "Author created",
-        variant: "default",
-        duration: 1500,
-      });
-      form.reset();
-      navigate("/authors");
-    },
-  });
+type AuthorsFormProps = {
+  onSubmit: (data: TAuthor) => void;
+  initialData?: TAuthor;
+};
+
+const AuthorsForm = ({onSubmit , initialData} : AuthorsFormProps) => {
+
 
   const form = useForm<TAuthor>({
     resolver: zodResolver(AuthorSchema),
     defaultValues: {
-      id: 0,
-      authorName: "",
+      id: initialData?.id || 0,
+      authorName: initialData?.authorName || "",
     },
   });
 
-  function onSubmit(data: TAuthor) {
-    createPostMutation.mutate(data);
+  function onFormSubmit(data: TAuthor) {
+    onSubmit(data);
+    form.reset();
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onFormSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="authorName"

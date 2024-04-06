@@ -13,6 +13,7 @@ import BookPage from './components/pages/BookPage'
 import AddNewBookPage from './components/pages/AddNewBookPage'
 import AddNewAuthorPage from './components/pages/AddNewAuthorPage'
 import NavBarSearch from './components/navbar/NavBarSearch'
+import EditAuthorPage from './components/pages/EditAuthorPage'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
             <Route path='/authors' element={<AllAuthorsPage />} />
             <Route path='/authors/new' element={<AddNewAuthorPage />} />
             <Route path='/author/:id' element={<AuthorPage />} />
+            <Route path='/author/:id/edit' element={<EditAuthorPage />} />
             <Route path='/books' element={< AllBooksPage />} />
             <Route path='/book/:id' element={<BookPage/>} />
             <Route path='/books/new' element={<AddNewBookPage />} />
