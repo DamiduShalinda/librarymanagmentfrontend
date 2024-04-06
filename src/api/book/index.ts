@@ -1,10 +1,15 @@
 import axios from 'axios';
 import { BooksAPI } from '../const';
-import { TBookAdd } from './../../schema/BookAddSchema';
+import { TBookAdd, TBookView } from './../../schema/BookAddSchema';
 
 
 const getBooks = async function () {
-    const response = await axios.get<TBookAdd[]>(BooksAPI);
+    const response = await axios.get<TBookView[]>(BooksAPI);
+    return response.data;
+}
+
+const getBookById = async function (id: number) {
+    const response = await axios.get<TBookAdd>(`${BooksAPI}/${id}`);
     return response.data;
 }
 
@@ -23,4 +28,4 @@ const deleteBook = async function (id: number) {
     return response.data;
 }
 
-export { getBooks, createBook, updateBook, deleteBook };
+export { getBooks, getBookById , createBook, updateBook, deleteBook };

@@ -14,6 +14,7 @@ import AddNewBookPage from './components/pages/AddNewBookPage'
 import AddNewAuthorPage from './components/pages/AddNewAuthorPage'
 import NavBarSearch from './components/navbar/NavBarSearch'
 import EditAuthorPage from './components/pages/EditAuthorPage'
+import EditBookPage from './components/pages/EditBookPage'
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
             <Route path='/author/:id/edit' element={<EditAuthorPage />} />
             <Route path='/books' element={< AllBooksPage />} />
             <Route path='/book/:id' element={<BookPage/>} />
+            <Route path='/book/:id/edit' element={<EditBookPage/>} />
             <Route path='/books/new' element={<AddNewBookPage />} />
             <Route path='*' element={<div>404</div>} />
             <Route path='/login' element={<LoginPage />} />

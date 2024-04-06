@@ -50,7 +50,7 @@ const AddBookForm = ({onSubmit , initialValues} : AddBookFormProps) => {
       bookName: initialValues?.bookName || "",
       authorName: initialValues?.authorName || "",
       isbn: initialValues?.isbn || "",
-      bookDescription: initialValues?.bookDescription || "",
+      bookDescription: initialValues?.bookDescription || ""
     },
   });
 

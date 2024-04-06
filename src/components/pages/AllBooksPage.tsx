@@ -1,11 +1,40 @@
 import { useNavigate } from "react-router-dom";
-import { DataTableDemo } from "../BookTable";
+import { AllBooksTable } from "../BookTable";
 import { Button } from "../ui/button";
+import { TBookView } from "@/schema/BookAddSchema";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { deleteBook, getBooks } from "@/api/book";
+import { toast } from "../ui/use-toast";
+
 
 const AllBooksPage = () => {
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const {data , isError , error , isLoading} = useQuery<TBookView[]>({
+    queryKey: ["books"],
+    queryFn: getBooks
+  });
 
+const deleteMutation = useMutation({
+  mutationFn: deleteBook,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ["authors"] });
+    toast({
+      title: "Author deleted",
+      variant: "destructive",
+      duration: 1500,
+    });
+  },
+});
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
   return (
     <div className="w-full px-10" id="all-books-page">
       <div className="flex flex-row justify-between items-center" id="all-books-page-header">
@@ -17,7 +46,10 @@ const AllBooksPage = () => {
           Add New Book
         </Button>
       </div>
-      <DataTableDemo />
+      <AllBooksTable dataList={data!} 
+        onDelete={(id) => deleteMutation.mutate(id)} 
+        onEdit={(id) => navigate(`/book/${id}/edit`)} 
+      />
     </div>
   );
 };

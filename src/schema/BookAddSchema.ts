@@ -23,3 +23,5 @@ export const BookAddSchema = z.object({
 });
 
 export type TBookAdd = z.infer<typeof BookAddSchema>;
+export type TBookView = Omit<TBookAdd, 'bookDescription'> & { status: string };
+export type TBookViewWithDesc = TBookAdd & { status: string };
