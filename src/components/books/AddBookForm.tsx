@@ -151,7 +151,7 @@ const AddBookForm = ({onSubmit , initialValues} : AddBookFormProps) => {
             </FormItem>
           )}
         />
-        <Button type="submit">Create Book</Button>
+        <Button type="submit">{initialValues ? "Update Book" : "Create Book"}</Button>
       </form>
     </Form>
   );

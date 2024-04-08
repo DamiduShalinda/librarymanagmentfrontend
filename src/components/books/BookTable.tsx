@@ -34,6 +34,7 @@ import {
   TableRow,
 } from "@/components/ui/table.tsx"
 import { TBookView } from "@/schema/BookAddSchema.ts"
+import { Badge } from "../ui/badge"
 
 
 type BookDataTableProps = {
@@ -91,19 +92,26 @@ export const columns: (
       )
     },
     cell: ({ row }) => (
-      <div>{row.getValue("bookName")}</div>
+      <div className=" font-medium">{row.getValue("bookName")}</div>
     ),
   },
   {
     accessorKey: "isbn",
-    header: () => <div className="text-right">ISBN</div> ,
-    cell: ({ row }) => <div className="lowercase">{row.getValue("isbn")}</div>,
+    header: () => <div>ISBN</div> ,
+    cell: ({ row }) => <div>{row.getValue("isbn")}</div>,
   },
   {
     accessorKey: "authorName",
     header: () => <div className="text-right">Author Name</div>,
     cell: ({ row }) => {
-      return <div className="text-right font-medium">{row.getValue("authorName")}</div>
+      return <div className="text-right">{row.getValue("authorName")}</div>
+    },
+  },
+  {
+    accessorKey: "status",
+    header: () => <div className="text-right">Status</div>,
+    cell: ({ row }) => {
+      return <div className="capitalize text-right"><Badge variant={row.getValue("status") == "Borrowed" ? "destructive" : "secondary"}>{row.getValue("status")}</Badge></div>
     },
   },
   {

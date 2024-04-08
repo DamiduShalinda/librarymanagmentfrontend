@@ -19,7 +19,7 @@ const AllBooksPage = () => {
 const deleteMutation = useMutation({
   mutationFn: deleteBook,
   onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: ["authors"] });
+    queryClient.invalidateQueries({ queryKey: ["books"] });
     toast({
       title: "Author deleted",
       variant: "destructive",

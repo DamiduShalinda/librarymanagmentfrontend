@@ -2,10 +2,8 @@ import { removeLoginData } from "@/state/login/loginSlice.ts";
 import { AppDispatch } from "@/state/store.ts";
 import { useDispatch } from "react-redux";
 import { Button } from "../ui/button.tsx";
-import React from "react";
 import { Home, Library, User } from "lucide-react";
 import NavBarItem, { RouterDetails } from "./NavBarItem.tsx";
-import ItemSearch from "./ItemSearch.tsx";
 
 const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -39,13 +37,15 @@ const Navbar = () => {
             <NavBarItem key={index} {...route} />
           ))}
         </div>
-        <Button
-          variant={"ghost"}
-          onClick={() => dispatch(removeLoginData())}
-          className="px-2 py-1 border-black/5 border-2 rounded-md hover:bg-white"
-        >
-          Logout
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            variant={"ghost"}
+            onClick={() => dispatch(removeLoginData())}
+            className="border-black/5 border-2 rounded-md w-11/12 hover:bg-white"
+          >
+            Logout
+          </Button>
+        </div>
       </div>
     </nav>
   );
