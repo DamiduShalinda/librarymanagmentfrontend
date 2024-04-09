@@ -12,22 +12,33 @@ import {
 import { TRegisterSchema } from "@/schema/registerSchema.ts";
 import { useMutation } from "@tanstack/react-query";
 import { register } from "@/api/register/index.ts";
+import { toast } from "@/components/ui/use-toast.ts";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
 
-  const registerMutation = useMutation({
+  const {mutate , data } = useMutation({
     mutationFn: register,
     onError: (error) => {
       console.log(error);
+      toast({
+        title: error.message,
+        variant: "destructive",
+        duration: 1500,
+      });
     },
     onSuccess: () => {
       navigate("/login");
+      toast({
+        title: "User registered successfully",
+        variant: "default",
+        duration: 1500,
+      });
     },
   });
 
   const onSubmit = (data: TRegisterSchema) => {
-    registerMutation.mutate(data);
+    mutate(data);
   };
 
   return (

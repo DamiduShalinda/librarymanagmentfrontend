@@ -4,12 +4,14 @@ interface LoginResponse {
     flag : boolean;
     token: string;
     message: string;
+    role : "Admin" | "User" | "";
     }
 
 const initialState: LoginResponse = {
     flag : false,
     token: '',
-    message: ''
+    message: '',
+    role: ''
 }
 
 const loginSlice = createSlice({
@@ -20,11 +22,13 @@ const loginSlice = createSlice({
             state.flag = action.payload.flag;
             state.token = action.payload.token;
             state.message = action.payload.message;
+            state.role = action.payload.role;
         },
         removeLoginData: (state) => {
             state.flag = false;
             state.token = '';
             state.message = '';
+            state.role = '';
         }
     }
 })

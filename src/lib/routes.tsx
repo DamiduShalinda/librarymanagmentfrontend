@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute role="Admin">
         <Layout>
           <BookBorrowPage />
         </Layout>
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
   {
     path: "/authors",
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute role="Admin">
         <Layout>
           <AllAuthorsPage />
         </Layout>
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
       {
         path: "new",
         element: (
-          <ProtectedRoute>
+          <ProtectedRoute role="Admin">
             <Layout>
               <AddNewAuthorPage />
             </Layout>
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
       {
         path: ":id",
         element: (
-          <ProtectedRoute>
+          <ProtectedRoute role="Admin">
             <Layout>
               <AuthorPage />
             </Layout>
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
       {
         path: ":id/edit",
         element: (
-          <ProtectedRoute>
+          <ProtectedRoute role="Admin">
             <Layout>
               <EditAuthorPage />
             </Layout>
@@ -69,7 +69,7 @@ const router = createBrowserRouter([
   {
     path: "/books",
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute role="Admin">
         <Layout>
           <AllBooksPage />
         </Layout>
@@ -79,7 +79,7 @@ const router = createBrowserRouter([
       {
         path: "new",
         element: (
-          <ProtectedRoute>
+          <ProtectedRoute role="Admin">
             <Layout>
               <AddNewBookPage />
             </Layout>
@@ -89,7 +89,7 @@ const router = createBrowserRouter([
       {
         path: ":id",
         element: (
-          <ProtectedRoute>
+          <ProtectedRoute  role="Admin">
             <Layout>
               <BookPage />
             </Layout>
@@ -99,7 +99,7 @@ const router = createBrowserRouter([
       {
         path: ":id/edit",
         element: (
-          <ProtectedRoute>
+          <ProtectedRoute role="Admin">
             <Layout>
               <EditBookPage />
             </Layout>
@@ -107,6 +107,16 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/borrow",
+    element: (
+      <ProtectedRoute role="User">
+        <Layout>
+          <BookBorrowPage />
+        </Layout>
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/login",

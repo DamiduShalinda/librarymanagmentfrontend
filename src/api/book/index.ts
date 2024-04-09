@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { BooksAPI } from '../const';
 import { TBookAdd, TBookView } from './../../schema/BookAddSchema';
-import CreateAxiosInstance from '@/lib/authconfig/AuthIntercepter';
 
-const axiosInstance = CreateAxiosInstance();
 
 const getBooks = async function () {
-    const response = await axiosInstance.get<TBookView[]>("Books");
+    const response = await axios.get<TBookView[]>("Books");
     return response.data;
 }
 

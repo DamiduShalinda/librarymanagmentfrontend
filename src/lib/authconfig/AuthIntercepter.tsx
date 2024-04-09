@@ -1,37 +1,48 @@
-import { api } from '@/api/const';
-import { removeLoginData } from '@/state/login/loginSlice';
-import { AppDispatch, RootState } from '@/state/store';
+
 import axios, { AxiosInstance } from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { api } from '@/api/const';
+import { RootState } from '@/state/store';
 
 const CreateAxiosInstance = (): AxiosInstance => {
-    const dispatch = useDispatch<AppDispatch>();
     const loginResponse = useSelector((state: RootState) => state.login);
-    const instance = axios.create({
-        baseURL: api,
-    });
-
     const navigate = useNavigate();
 
-    instance.interceptors.request.use(
-        config => {
-            const token = loginResponse.token ;
+    const [axiosInstance, setAxiosInstance] = useState<AxiosInstance | null>(null);
 
-            if (token === null || token === "" || token === undefined) {
-                navigate('/login');
-                dispatch(removeLoginData())
-            } else {
-                config.headers.Authorization = `Bearer ${token}`;
+    useEffect(() => {
+        const instance = axios.create({
+            baseURL: api,
+        });
+
+        instance.interceptors.request.use(
+            config => {
+                const token = loginResponse.token ;
+
+                if (token === null || token === "" || token === undefined) {
+                    navigate('/login');
+                } else {
+                    config.headers.Authorization = `Bearer ${token}`;
+                }
+                return config;
+            },
+            error => {
+                return Promise.reject(error);
             }
-            return config;
-        },
-        error => {
-            return Promise.reject(error);
-        }
-    );
+        );
 
-    return instance;
+        setAxiosInstance(instance);
+
+        return () => {
+            setAxiosInstance(null);
+        };
+    }, [loginResponse, navigate]);
+
+    return axiosInstance!;
 };
 
 export default CreateAxiosInstance;
+
+

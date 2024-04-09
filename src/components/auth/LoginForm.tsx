@@ -46,7 +46,11 @@ const LoginForm = () => {
         duration: 1500,
       });
       dispatch(saveLoginData(data.data));
-      navigate("/");
+      if (data.data.role === "Admin") {
+        navigate("/");
+      } else {
+        navigate("/borrow");
+      }
     },
   });
 
