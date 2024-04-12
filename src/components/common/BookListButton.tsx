@@ -23,7 +23,7 @@ const BookListButton = () => {
             <>
             <ul>
               {bookList.books.map((book) => (
-                <BookListItem key={book} book={book} onClickDeleteButton={(bookName) => dispatch(removeBook(bookName))} />
+                <BookListItem key={book.id} bookName={book.bookName} onClickDeleteButton={(bookName) => dispatch(removeBook(bookName))} />
               ))}
             </ul>
             <p className="text-sm font-medium py-3 px-2">Returned Date : {date.toDateString()}</p>
@@ -44,11 +44,11 @@ const BookListButton = () => {
 
 export default BookListButton;
 
-const BookListItem = ({ book , onClickDeleteButton }: { book: string , onClickDeleteButton : (bookname: string) => void }) => {
+const BookListItem = ({ bookName , onClickDeleteButton }: { bookName: string , onClickDeleteButton : (bookname: string) => void }) => {
   return (
     <div className="flex flex-row justify-between p-2 items-center hover:bg-gray-100 rounded-md">
-      <li key={book}>{book}</li>
-      <Trash onClick={() => onClickDeleteButton(book)} absoluteStrokeWidth size={15} strokeWidth={1.5}/>
+      <li key={bookName}>{bookName}</li>
+      <Trash onClick={() => onClickDeleteButton(bookName)} absoluteStrokeWidth size={15} strokeWidth={1.5}/>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { TBookCheckout, bookSampleData } from "@/model/bookcheckout";
+import { TBookCheckout } from "@/model/bookcheckout";
 import { AppDispatch, RootState } from "@/state/store";
 import { useDispatch, useSelector } from "react-redux";
 import BookCheckoutItem from "../common/BookCheckoutItem";
@@ -9,14 +9,35 @@ import { format } from "date-fns";
 import { Button } from "../ui/button";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../ui/calendar";
-import { removeBook } from "@/state/login/bookSlice";
+import { removeAllBooks, removeBook } from "@/state/login/bookSlice";
 import { toast } from "../ui/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { checkoutBooks } from "@/api/borrow";
 
 const BookCheckoutForm = () => {
   const bookList = useSelector((state: RootState) => state.book.books);
   const dispatch = useDispatch<AppDispatch>();
-  const sampleData = bookSampleData;
   const [date, setDate] = React.useState<Date>();
+
+  const addCheckOutBooksMutation = useMutation({
+    mutationFn : checkoutBooks,
+    onError: (error , data) => {
+      console.log(data);
+      console.error(error);
+      toast({
+        title: "Error",
+        description: error.message,
+      });
+    },
+    onSuccess: () => {
+      dispatch(removeAllBooks());
+      toast({
+        title: "Books Checked Out",
+        description: "Books have been checked out successfully , Wait For Approval",
+      });
+    },
+  
+  });
 
   const onClickDeleteButton = (bookName: string) => {
     dispatch(removeBook(bookName));
@@ -33,7 +54,7 @@ const BookCheckoutForm = () => {
         description: "Please select a return date for the books",
       });
       return;
-    } else if (sampleData.length === 0) {
+    } else if (bookList.length === 0) {
       toast({
         title: "No Books Selected",
         description: "Please select books to checkout",
@@ -47,20 +68,16 @@ const BookCheckoutForm = () => {
       return;
     }
     const approveRequest : TBookCheckout = {
-      bookList: sampleData.map((book) => book.id),
+      bookList: bookList.map((book) => book.id),
       checkOutDate: date,
     };
-    console.log(approveRequest);
-    toast({
-      title: "Books Checked Out",
-      description: "Books have been checked out successfully",
-    });
+    addCheckOutBooksMutation.mutate(approveRequest);
   }
 
   return (
     <div id="bookDataArray" className=" flex flex-col gap-5 w-2/3">
       <div>
-      {sampleData.map((book, index) => (
+      {bookList.map((book, index) => (
         <BookCheckoutItem key={index} data={book} onClickDeleteButton={onClickDeleteButton} />
       ))}
       </div>

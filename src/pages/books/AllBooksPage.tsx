@@ -8,6 +8,7 @@ import { toast } from "../../components/ui/use-toast.ts";
 import { AppDispatch } from "@/state/store.ts";
 import { useDispatch } from "react-redux";
 import { addBook } from "@/state/login/bookSlice.tsx";
+import { TSimpleBook } from "@/model/simplebook.ts";
 
 
 const AllBooksPage = () => {
@@ -31,6 +32,19 @@ const deleteMutation = useMutation({
     });
   },
 });
+
+const convertAndFindData = (data: TBookView[] , bookName: string) : TSimpleBook => {
+  const book = data.find((book) => book.bookName === bookName);
+  if (!book) {
+    throw new Error("Book not found");
+  }
+  const simpleBook: TSimpleBook = {
+    id: book.id,
+    authorName: book.authorName,
+    bookName: book.bookName,
+  };
+  return simpleBook;
+}
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -56,7 +70,7 @@ const deleteMutation = useMutation({
         onView={(id) => navigate(`/book/${id}`)}
         onDelete={(id) => deleteMutation.mutate(id)} 
         onEdit={(id) => navigate(`/book/${id}/edit`)}
-        onClickAddButton={(bookName) => {dispatch(addBook(bookName))}}
+        onClickAddButton={(bookName) => {dispatch(addBook(convertAndFindData(data!, bookName)))}}
       />
     </div>
   );

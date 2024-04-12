@@ -12,6 +12,7 @@ import EditBookPage from "@/pages/books/EditBookPage";
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout";
 import ProtectedRoute from "./authconfig/ProtectedRoute";
+import BooksApprovePage from "@/pages/books/BooksApprovePage";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute role="Admin">
         <Layout>
-          <BookBorrowPage />
+          <BooksApprovePage />
         </Layout>
       </ProtectedRoute>
     ),

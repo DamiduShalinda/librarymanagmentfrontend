@@ -7,3 +7,5 @@ export const LoginAPI = api + "Account/login";
 export const RegisterAPI = api + "Account/register";
 export const GetBookNamesListAPI = api + "Borrow/booknames";
 export const GetUserNameListAPI = api + "Borrow/usernames";
+export const CheckoutBooksAPI = api + "Borrow/checkout";
+export const ApproveBooksAPI = api + "Borrow/approve";

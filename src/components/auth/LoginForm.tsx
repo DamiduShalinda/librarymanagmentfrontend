@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { saveLoginData } from "@/state/login/loginSlice.ts";
 import { setLoading } from "@/state/login/loadingSlice.ts";
 import { useNavigate } from "react-router-dom";
+import { setAuthorizationHeader } from "@/lib/authconfig/AuthIntercepter.tsx";
 
 const LoginForm = () => {
   const queryClient = useQueryClient();
@@ -39,13 +40,13 @@ const LoginForm = () => {
     onSuccess: (data) => {
       dispatch(setLoading(false));
       queryClient.invalidateQueries({ queryKey: ["login"] });
-      console.log(data.data);
       toast({
         title: "Login successful",
         variant: "default",
         duration: 1500,
       });
       dispatch(saveLoginData(data.data));
+      setAuthorizationHeader(data.data.token);
       if (data.data.role === "Admin") {
         navigate("/");
       } else {

@@ -1,7 +1,8 @@
+import { TSimpleBook } from "@/model/simplebook";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface BookState {
-    books: string[];
+    books: TSimpleBook[];
 }
 
 const initialState: BookState = {
@@ -14,7 +15,7 @@ const bookSlice = createSlice({
     name: 'book',
     initialState,
     reducers: {
-        addBook: (state, action: PayloadAction<string>) => {
+        addBook: (state, action: PayloadAction<TSimpleBook>) => {
             if (state.books.includes(action.payload)) {
                 return;
             } else if (state.books.length >= MAX_BOOKS) {
@@ -25,7 +26,7 @@ const bookSlice = createSlice({
             }
         },
         removeBook: (state, action: PayloadAction<string>) => {
-            state.books = state.books.filter(book => book !== action.payload);
+            state.books = state.books.filter(book => book.bookName !== action.payload);
         },
         removeAllBooks: (state) => {
             state.books = [];
