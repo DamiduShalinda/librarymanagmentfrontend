@@ -1,15 +1,16 @@
 import { removeLoginData } from "@/state/login/loginSlice.ts";
-import { AppDispatch } from "@/state/store.ts";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "@/state/store.ts";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../ui/button.tsx";
 import { Home, Library, User } from "lucide-react";
 import NavBarItem, { RouterDetails } from "./NavBarItem.tsx";
 
 const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const loginResponse = useSelector((state: RootState) => state.login);
   const routes: RouterDetails[] = [
     {
-      path: "/",
+      path: loginResponse.role === "Admin" ? "/" : "/borrow",
       name: "Home",
       icon: <Home size={16} strokeWidth={1} absoluteStrokeWidth />,
     },

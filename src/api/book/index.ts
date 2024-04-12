@@ -4,7 +4,7 @@ import { TBookAdd, TBookView } from './../../schema/BookAddSchema';
 
 
 const getBooks = async function () {
-    const response = await axios.get<TBookView[]>("Books");
+    const response = await axios.get<TBookView[]>(BooksAPI);
     return response.data;
 }
 

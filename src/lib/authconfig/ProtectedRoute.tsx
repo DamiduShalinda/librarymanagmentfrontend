@@ -8,7 +8,7 @@ import { Navigate } from 'react-router-dom';
 
 type ProtectedRouteProps = {
     children: React.ReactNode;
-    role : "Admin" | "User";
+    role : "Admin" | "User" | "All";
 }
 
 
@@ -16,7 +16,10 @@ const ProtectedRoute:React.FC<ProtectedRouteProps> = ({children , role}) => {
     const dispatch = useDispatch<AppDispatch>();
     const loginResponse = useSelector((state: RootState) => state.login);
   
-    if(loginResponse.flag && loginResponse.role === role){
+    if(loginResponse.flag && role === "All"){
+        return <>{children}</>
+    }
+    else if(loginResponse.flag && loginResponse.role === role){
         return <>{children}</>
     }
     else if (loginResponse.role !== role){

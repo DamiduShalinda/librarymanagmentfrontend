@@ -5,3 +5,5 @@ export const AuthorsAPI = api + "Authors";
 export const BooksAPI = api + "Books";
 export const LoginAPI = api + "Account/login";
 export const RegisterAPI = api + "Account/register";
+export const GetBookNamesListAPI = api + "Borrow/booknames";
+export const GetUserNameListAPI = api + "Borrow/usernames";

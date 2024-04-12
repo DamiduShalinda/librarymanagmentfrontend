@@ -5,12 +5,16 @@ import { TBookView } from "@/schema/BookAddSchema.ts";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteBook, getBooks } from "@/api/book";
 import { toast } from "../../components/ui/use-toast.ts";
+import { AppDispatch } from "@/state/store.ts";
+import { useDispatch } from "react-redux";
+import { addBook } from "@/state/login/bookSlice.tsx";
 
 
 const AllBooksPage = () => {
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const dispatch = useDispatch<AppDispatch>();
   const {data , isError , error , isLoading} = useQuery<TBookView[]>({
     queryKey: ["books"],
     queryFn: getBooks
@@ -35,6 +39,7 @@ const deleteMutation = useMutation({
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
+
   return (
     <div className="w-full px-10" id="all-books-page">
       <div className="flex flex-row justify-between items-center" id="all-books-page-header">
@@ -46,9 +51,12 @@ const deleteMutation = useMutation({
           Add New Book
         </Button>
       </div>
-      <AllBooksTable dataList={data!} 
+      <AllBooksTable 
+      dataList={data!} 
+        onView={(id) => navigate(`/book/${id}`)}
         onDelete={(id) => deleteMutation.mutate(id)} 
-        onEdit={(id) => navigate(`/book/${id}/edit`)} 
+        onEdit={(id) => navigate(`/book/${id}/edit`)}
+        onClickAddButton={(bookName) => {dispatch(addBook(bookName))}}
       />
     </div>
   );

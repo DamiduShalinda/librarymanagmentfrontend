@@ -35,12 +35,16 @@ import {
 } from "@/components/ui/table.tsx"
 import { TBookView } from "@/schema/BookAddSchema.ts"
 import { Badge } from "../ui/badge"
+import { LoginResponse, RootState } from "@/state/store"
+import { useSelector } from "react-redux"
 
 
 type BookDataTableProps = {
   dataList : TBookView[]
   onEdit: (id: number) => void
   onDelete: (id: number) => void
+  onView: (id: number) => void
+  onClickAddButton : (name : string) => void
 }
 
 
@@ -54,8 +58,11 @@ type BookData = {
 
 export const columns: (
   onEdit: (id: number) => void,
-  onDelete: (id: number) => void
-) => ColumnDef<BookData>[] = (onEdit, onDelete) => [
+  onDelete: (id: number) => void,
+  onView: (id: number) => void,
+  onClickAddButton : (name : string) => void,
+  loginResponse : LoginResponse
+) => ColumnDef<BookData>[] = (onEdit, onDelete , onView , onClickAddButton , loginResponse) => [
   {
     id: "select",
     header: ({ table }) => (
@@ -129,7 +136,7 @@ export const columns: (
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={ () => onView(BookData.id)}>
               View Book Details
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -142,20 +149,29 @@ export const columns: (
       )
     },
   },
+  {
+    accessorKey: "bookName",
+    enableHiding: loginResponse.role == "Admin" ? false : true,
+    header: () => <div className="text-right">Author Name</div>,
+    cell: ({ row }) => {
+      return <div className="text-left"><Button onClick={ () => onClickAddButton(row.getValue("bookName")) } variant={"secondary"} size={"sm"} >Add to List</Button></div>
+    },
+  },
 ]
 
-export function AllBooksTable({ dataList, onEdit, onDelete }: BookDataTableProps) {
+export function AllBooksTable({ dataList, onEdit, onDelete , onView , onClickAddButton }: BookDataTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   )
+  const loginResponse = useSelector((state: RootState) => state.login);
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
     data: dataList,
-    columns: columns(onEdit, onDelete),
+    columns: columns(onEdit, onDelete , onView , onClickAddButton , loginResponse),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),

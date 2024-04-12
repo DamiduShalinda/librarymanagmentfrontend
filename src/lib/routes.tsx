@@ -69,7 +69,7 @@ const router = createBrowserRouter([
   {
     path: "/books",
     element: (
-      <ProtectedRoute role="Admin">
+      <ProtectedRoute role="All">
         <Layout>
           <AllBooksPage />
         </Layout>
