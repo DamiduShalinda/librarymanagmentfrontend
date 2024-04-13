@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import {
   ColumnDef,
@@ -11,20 +13,17 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, ChevronDown, ChevronRight } from "lucide-react"
 
-import { Button } from "@/components/ui/button.tsx"
-import { Checkbox } from "@/components/ui/checkbox.tsx"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu.tsx"
-import { Input } from "@/components/ui/input.tsx"
+} from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
 import {
   Table,
   TableBody,
@@ -32,39 +31,16 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table.tsx"
-import { TBookView } from "@/schema/BookAddSchema.ts"
-import { Badge } from "../ui/badge"
-import { LoginResponse, RootState } from "@/state/store"
-import { useSelector } from "react-redux"
+} from "@/components/ui/table"
+import { TBasicCheckout } from "@/model/basicCheckout"
 
-
-type BookDataTableProps = {
-  dataList : TBookView[]
-  onEdit: (id: number) => void
-  onDelete: (id: number) => void
-  onView: (id: number) => void
-  onClickAddButton : (name : string) => void
-}
-
-
-type BookData = {
-  id: number
-  bookName: string
-  isbn: string
-  authorName: string
-  status: string
-}
-
-const columns: (
-  onEdit: (id: number) => void,
-  onDelete: (id: number) => void,
-  onView: (id: number) => void,
-  onClickAddButton : (name : string) => void,
-  loginResponse : LoginResponse
-) => ColumnDef<BookData>[] = (onEdit, onDelete , onView , onClickAddButton , loginResponse) => [
+const columns:(
+  onChevronClick: (id: number) => void
+) => ColumnDef<TBasicCheckout>[] = (
+  onChevronClick
+) => [
   {
-    id: "select",
+    id: "id",
     header: ({ table }) => (
       <Checkbox
         checked={
@@ -86,92 +62,58 @@ const columns: (
     enableHiding: false,
   },
   {
-    accessorKey: "bookName",
+    accessorKey: "userName",
+    header: "User Name",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("userName")}</div>
+    ),
+  },
+  {
+    accessorKey: "requestedDate",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Book Name
+          Requested Date
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
-    cell: ({ row }) => (
-      <div className=" font-medium">{row.getValue("bookName")}</div>
-    ),
-  },
-  {
-    accessorKey: "isbn",
-    header: () => <div>ISBN</div> ,
-    cell: ({ row }) => <div>{row.getValue("isbn")}</div>,
-  },
-  {
-    accessorKey: "authorName",
-    header: () => <div className="text-right">Author Name</div>,
-    cell: ({ row }) => {
-      return <div className="text-right">{row.getValue("authorName")}</div>
-    },
-  },
-  {
-    accessorKey: "status",
-    header: () => <div className="text-right">Status</div>,
-    cell: ({ row }) => {
-      return <div className="capitalize text-right"><Badge variant={row.getValue("status") == "Borrowed" ? "destructive" : "secondary"}>{row.getValue("status")}</Badge></div>
-    },
+    cell: ({ row }) => <div className="lowercase">{row.getValue("requestedDate")}</div>,
   },
   {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const BookData = row.original
+      const rowData = row.original
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={ () => onView(BookData.id)}>
-              View Book Details
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={ () => onEdit(BookData.id) }
-            >Edit Book Details</DropdownMenuItem>
-            <DropdownMenuItem onClick={ () => onDelete(BookData.id)}
-            >Delete Book</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div>
+          <ChevronRight className="h-6 w-6" absoluteStrokeWidth strokeWidth={1.5} onClick={() => onChevronClick(rowData.id)} />
+        </div>
       )
-    },
-  },
-  {
-    accessorKey: "bookName",
-    enableHiding: loginResponse.role == "Admin" ? false : true,
-    header: () => <div className="text-right">Author Name</div>,
-    cell: ({ row }) => {
-      return <div className="text-left"><Button onClick={ () => onClickAddButton(row.getValue("bookName")) } variant={"secondary"} size={"sm"} >Add to List</Button></div>
     },
   },
 ]
 
-export function AllBooksTable({ dataList, onEdit, onDelete , onView , onClickAddButton }: BookDataTableProps) {
+type BookCheckoutTableProps = {
+  data: TBasicCheckout[]
+  onChevronClick: (id: number) => void
+}
+
+export function AllBookCheckoutTable({ data , onChevronClick }: BookCheckoutTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   )
-  const loginResponse = useSelector((state: RootState) => state.login);
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
-    data: dataList,
-    columns: columns(onEdit, onDelete , onView , onClickAddButton , loginResponse),
+    data,
+    columns : columns(onChevronClick),
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -192,10 +134,10 @@ export function AllBooksTable({ dataList, onEdit, onDelete , onView , onClickAdd
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter Books..."
-          value={(table.getColumn("bookName")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter emails..."
+          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("bookName")?.setFilterValue(event.target.value)
+            table.getColumn("email")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

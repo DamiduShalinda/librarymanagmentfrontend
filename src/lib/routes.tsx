@@ -13,6 +13,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout";
 import ProtectedRoute from "./authconfig/ProtectedRoute";
 import BooksApprovePage from "@/pages/books/BooksApprovePage";
+import ViewBookRequest from "@/pages/booksborrow/ViewBookRequest";
 
 const router = createBrowserRouter([
   {
@@ -117,7 +118,17 @@ const router = createBrowserRouter([
           <BookBorrowPage />
         </Layout>
       </ProtectedRoute>
-    ),
+    )
+  },
+  {
+    path: "/checkout/:id",
+    element: (
+      <ProtectedRoute role="Admin">
+        <Layout>
+          <ViewBookRequest />
+        </Layout>
+      </ProtectedRoute>
+    )
   },
   {
     path: "/login",
