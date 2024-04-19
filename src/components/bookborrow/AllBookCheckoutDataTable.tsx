@@ -33,6 +33,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { TBasicCheckout } from "@/model/basicCheckout"
+import { Badge } from "../ui/badge"
 
 const columns:(
   onChevronClick: (id: number) => void
@@ -82,6 +83,13 @@ const columns:(
       )
     },
     cell: ({ row }) => <div className="lowercase">{row.getValue("requestedDate")}</div>,
+  },
+  {
+    accessorKey: "isApproved",
+    header: "Approved",
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("isApproved") == true ? <Badge variant={"default"}>Approved</Badge> : <Badge variant={"destructive"}>Pending</Badge> }</div>
+    ),
   },
   {
     id: "actions",

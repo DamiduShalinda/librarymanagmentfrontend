@@ -30,5 +30,12 @@ const getCheckOutRequestById = async (id : number) => {
   return (await axiosInstance.get<TExtendedCheckout>(`${GetCheckOutBooksList}/${id}`)).data;
 }
 
+const deleteCheckoutRequest = async (id : number) => {
+  return (await axiosInstance.delete(`${GetCheckOutBooksList}/${id}`)).data;
+}
 
-export { getBookNames, getUserNameList , checkoutBooks , approveBooks , getCheckOutBooksList , getCheckOutRequestById};
+const completeCheckoutRequest = async (id : number , remarks? : string) => {
+  return (await axiosInstance.post(`${GetCheckOutBooksList}/${id}/complete`, {remarks})).data;
+}
+
+export { getBookNames, getUserNameList , checkoutBooks , approveBooks , getCheckOutBooksList , getCheckOutRequestById , deleteCheckoutRequest , completeCheckoutRequest};

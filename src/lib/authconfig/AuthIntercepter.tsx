@@ -16,7 +16,7 @@ const addAuthorizationHeader = (
 };
 
 export const setAuthorizationHeader = (token: string) => {
-  axiosInstance.interceptors.request.use((config : AxiosRequestConfig<unknown>) => {
+  axiosInstance.interceptors.request.use((config : AxiosRequestConfig<any>) => {
     return addAuthorizationHeader(config, token);
   },
     (error) => {

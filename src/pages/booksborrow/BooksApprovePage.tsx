@@ -54,7 +54,7 @@ const BooksApprovePage = () => {
             </label>
           </div>
           </div>
-          <AllBookCheckoutTable data={data} onChevronClick={(id) => navigate(`/checkout/${id}`)}/>
+          <AllBookCheckoutTable data={data} onChevronClick={(id) => navigate(`/borrow/${id}`)}/>
         </CardContent>
       </Card>
     </div>

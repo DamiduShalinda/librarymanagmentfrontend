@@ -1,4 +1,4 @@
-import BookBorrowPage from "@/pages/BookBorrowPage";
+import BookBorrowPage from "@/pages/booksborrow/BookBorrowPage";
 import LoginPage from "@/pages/auth/LoginPage";
 import RegisterPage from "@/pages/auth/RegisterPage";
 import AddNewAuthorPage from "@/pages/author/AddNewAuthorPage";
@@ -12,8 +12,9 @@ import EditBookPage from "@/pages/books/EditBookPage";
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout";
 import ProtectedRoute from "./authconfig/ProtectedRoute";
-import BooksApprovePage from "@/pages/books/BooksApprovePage";
+import BooksApprovePage from "@/pages/booksborrow/BooksApprovePage";
 import ViewBookRequest from "@/pages/booksborrow/ViewBookRequest";
+import AllRequestsOfUser from "@/pages/booksborrow/AllRequestsOfUser";
 
 const router = createBrowserRouter([
   {
@@ -111,24 +112,46 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/borrow",
-    element: (
-      <ProtectedRoute role="User">
-        <Layout>
-          <BookBorrowPage />
-        </Layout>
-      </ProtectedRoute>
-    )
-  },
-  {
-    path: "/checkout/:id",
+    path: "/borrow/:id",
     element: (
       <ProtectedRoute role="Admin">
         <Layout>
           <ViewBookRequest />
         </Layout>
       </ProtectedRoute>
-    )
+    ),
+  },
+  {
+    path: "/borrow",
+    element: (
+      <ProtectedRoute role="Admin">
+        <Layout>
+          <AllRequestsOfUser />
+        </Layout>
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: ":id",
+        element: (
+          <ProtectedRoute role="Admin">
+            <Layout>
+              <ViewBookRequest />
+            </Layout>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "new",
+        element: (
+          <ProtectedRoute role="User">
+            <Layout>
+              <BookBorrowPage />
+            </Layout>
+          </ProtectedRoute>
+        ),
+      }
+    ],
   },
   {
     path: "/login",

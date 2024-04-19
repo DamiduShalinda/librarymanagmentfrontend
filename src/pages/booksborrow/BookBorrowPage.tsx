@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../components/ui/card.tsx"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../../components/ui/card.tsx"
 import BookCheckoutForm from "@/components/bookborrow/BookCheckoutForm.tsx"
 
 const BookBorrowPage = () => {
@@ -13,7 +13,6 @@ const BookBorrowPage = () => {
         <BookCheckoutForm />
       </CardContent>
       <CardFooter className="flex justify-center">
-
       </CardFooter>
     </Card>
   </div>
